@@ -1,75 +1,55 @@
-# React + TypeScript + Vite
+# Git Discovery
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React and TypeScript frontend built with Vite. The app uses Supabase for Google sign-in and can request profile data from a FastAPI backend.
 
-Currently, two official plugins are available:
+## Prerequisites
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Node.js 22.12 or newer (or Node.js 20.19 or newer)
+- npm
+- A Supabase project configured with Google OAuth
+- The FastAPI backend, if you want to load profile data
 
-## React Compiler
+## Setup
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Install dependencies:
 
-## Expanding the ESLint configuration
+   ```sh
+   npm ci
+   ```
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+2. Create your local environment file:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+   ```sh
+   cp example.env .env.local
+   ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+3. Set the values in `.env.local`:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+   ```dotenv
+   VITE_SUPABASE_URL="https://your-project.supabase.co"
+   VITE_SUPABASE_ANON_KEY="your-supabase-publishable-key"
+   VITE_API_URL="http://localhost:8000"
+   ```
 
+   Use your Supabase project URL and publishable (or legacy `anon`) key. Set `VITE_API_URL` to the base URL of your FastAPI backend. The app requests `GET /api/profile` and sends the signed-in user's access token as a bearer token.
+
+4. In Supabase, enable Google as an authentication provider and allow your local app URL (typically `http://localhost:5173`) in the project's redirect URL settings.
+
+## Run locally
+
+Start the Vite development server:
+
+```sh
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+Open the local URL printed in the terminal, usually `http://localhost:5173`. The dev server supports hot module replacement.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Available commands
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```sh
+npm run dev      # Start the development server
+npm run build    # Type-check and build for production
+npm run preview  # Preview the production build locally
+npm run lint     # Run ESLint
 ```
