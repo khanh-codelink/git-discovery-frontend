@@ -20,10 +20,10 @@ A React and TypeScript frontend built with Vite. The app uses Supabase for Googl
 2. Create your local environment file:
 
    ```sh
-   cp example.env .env.local
+   cp example.env .env.development.local
    ```
 
-3. Set the values in `.env.local`:
+3. Set the values in `.env.development.local`:
 
    ```dotenv
    VITE_SUPABASE_URL="https://your-project.supabase.co"
@@ -46,6 +46,25 @@ npm run dev
 @@## Run locally
 @@Open the local URL printed in the terminal, usually
 Open the local URL printed in the terminal, usually `http://localhost:5173`. The dev server supports hot module replacement.
+
+### Test the production build locally
+
+Create `.env.production.local` with the production values you want to test. You can start from the example file:
+
+```sh
+cp example.env .env.production.local
+```
+
+Set `VITE_API_URL` to the production backend URL and use the intended Supabase project values. These `VITE_*` values are public and are embedded in the built frontend; do not put secrets in this file.
+
+Build and serve the production bundle:
+
+```sh
+npm run build
+npm run preview
+```
+
+Open the preview URL printed in the terminal, usually `http://localhost:4173`. Vite reads `.env.production.local` during the build, so rebuild after changing its values. If testing Google sign-in, allow the preview URL in Supabase's redirect URL settings.
 
 ## Deploy
 
