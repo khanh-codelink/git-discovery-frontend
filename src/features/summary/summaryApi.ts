@@ -30,7 +30,7 @@ function createMockSummary(repository: RepoResult): SummaryResponse {
 }
 
 export async function summarizeRepository(repository: RepoResult): Promise<SummaryResponse> {
-  if (import.meta.env.VITE_USE_MOCK_SEARCH !== 'false') {
+  if (import.meta.env.VITE_USE_MOCK_SEARCH === 'true') {
     await new Promise<void>((resolve) => window.setTimeout(resolve, 300))
     return createMockSummary(repository)
   }

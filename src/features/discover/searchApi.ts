@@ -68,7 +68,7 @@ function createMockResponse(query: string): SearchResponse {
 }
 
 export async function searchRepositories(query: string): Promise<SearchResponse> {
-  if (import.meta.env.VITE_USE_MOCK_SEARCH !== 'false') {
+  if (import.meta.env.VITE_USE_MOCK_SEARCH === 'true') {
     await new Promise<void>((resolve) => window.setTimeout(resolve, 300))
     return createMockResponse(query)
   }

@@ -39,7 +39,7 @@ export async function compareRepositories(
   criteria: string,
   repositories: RepoResult[],
 ): Promise<ComparisonResponse> {
-  if (import.meta.env.VITE_USE_MOCK_SEARCH !== 'false') {
+  if (import.meta.env.VITE_USE_MOCK_SEARCH === 'true') {
     await new Promise<void>((resolve) => window.setTimeout(resolve, 300))
     return createMockComparison(criteria, repositories)
   }
