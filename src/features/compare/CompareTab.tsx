@@ -15,13 +15,15 @@ const initialMessages: ChatItem[] = [
 
 type CompareTabProps = {
   savedRepositories: RepoResult[]
+  onDeleteRepository: (repositoryId: string) => void
+  deletingRepositoryIds: string[]
 }
 
 function getErrorMessage(error: unknown) {
   return error instanceof Error ? error.message : 'Comparison failed. Please try again.'
 }
 
-export function CompareTab({ savedRepositories }: CompareTabProps) {
+export function CompareTab({ savedRepositories, onDeleteRepository, deletingRepositoryIds }: CompareTabProps) {
   const [selectedIds, setSelectedIds] = useState<string[]>([])
   const [messages, setMessages] = useState<ChatItem[]>(initialMessages)
   const [isLoading, setIsLoading] = useState(false)
@@ -74,6 +76,8 @@ export function CompareTab({ savedRepositories }: CompareTabProps) {
         repositories={savedRepositories}
         selectedIds={selectedIds}
         onToggle={toggleRepository}
+        onDelete={onDeleteRepository}
+        deletingRepositoryIds={deletingRepositoryIds}
       />
       <ChatPanel input={messages} isLoading={isLoading} loadingText="Comparing repositories..." error={error} />
       <ChatComposer onSend={sendMessage} disabled={isLoading} />

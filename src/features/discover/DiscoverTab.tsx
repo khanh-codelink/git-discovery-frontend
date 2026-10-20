@@ -64,6 +64,16 @@ export function DiscoverTab({
         savingRepositoryIds={savingRepositoryIds}
       />
       <ChatComposer onSend={sendMessage} disabled={isLoading} />
+      {import.meta.env.VITE_USE_MOCK_SEARCH === 'true' && (
+        <button
+          className="send-button"
+          type="button"
+          onClick={() => sendMessage('test mock')}
+          disabled={isLoading}
+        >
+          TestMock
+        </button>
+      )}
     </>
   )
 }

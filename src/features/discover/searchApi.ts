@@ -1,31 +1,87 @@
 import type { RepoResult, SearchQuery, SearchResponse } from '../../types/search'
 
 const mockRepositories: RepoResult[] = [
-  {
-    repo_id: 'vitejs-vite',
-    name: 'vite',
-    full_name: 'vitejs/vite',
-    description: 'Next generation frontend tooling.',
-    html_url: 'https://github.com/vitejs/vite',
-    stargazers_count: 72000,
-  },
-  {
-    repo_id: 'facebook-react',
-    name: 'react',
-    full_name: 'facebook/react',
-    description: 'The library for web and native user interfaces.',
-    html_url: 'https://github.com/facebook/react',
-    stargazers_count: 240000,
-  },
-  {
-    repo_id: 'microsoft-typescript',
-    name: 'TypeScript',
-    full_name: 'microsoft/TypeScript',
-    description: 'TypeScript is a language for application-scale JavaScript.',
-    html_url: 'https://github.com/microsoft/TypeScript',
-    stargazers_count: 105000,
-  },
-]
+        {
+            "repo_id": "340402576",
+            "name": "react-native-vision-camera",
+            "full_name": "margelo/react-native-vision-camera",
+            "description": "📸 A powerful, high-performance React Native Camera library.",
+            "html_url": "https://github.com/margelo/react-native-vision-camera",
+            "stargazers_count": 9646
+        },
+        {
+            "repo_id": "52881637",
+            "name": "react-native-actionsheet",
+            "full_name": "beefe/react-native-actionsheet",
+            "description": "An elegant ActionSheet component for React Native.",
+            "html_url": "https://github.com/beefe/react-native-actionsheet",
+            "stargazers_count": 1355
+        },
+        {
+            "repo_id": "99263293",
+            "name": "react-native-sketch-canvas",
+            "full_name": "terrylinla/react-native-sketch-canvas",
+            "description": "A React Native component for drawing by touching on both iOS and Android.",
+            "html_url": "https://github.com/terrylinla/react-native-sketch-canvas",
+            "stargazers_count": 716
+        },
+        {
+            "repo_id": "39454666",
+            "name": "awesome-dataviz",
+            "full_name": "hal9ai/awesome-dataviz",
+            "description": "A curated list of awesome data visualization libraries and resources.",
+            "html_url": "https://github.com/hal9ai/awesome-dataviz",
+            "stargazers_count": 4434
+        },
+        {
+            "repo_id": "144546080",
+            "name": "react-native-signature-canvas",
+            "full_name": "YanYuanFE/react-native-signature-canvas",
+            "description": ":black_nib: React Native Signature Component based  WebView Canvas for Android && IOS && expo",
+            "html_url": "https://github.com/YanYuanFE/react-native-signature-canvas",
+            "stargazers_count": 507
+        },
+        {
+            "repo_id": "32302012",
+            "name": "bwip-js",
+            "full_name": "metafloor/bwip-js",
+            "description": "Barcode Writer in Pure JavaScript",
+            "html_url": "https://github.com/metafloor/bwip-js",
+            "stargazers_count": 2424
+        },
+        {
+            "repo_id": "426456412",
+            "name": "react-native-animated-todo",
+            "full_name": "craftzdog/react-native-animated-todo",
+            "description": "Animated ToDo app built with React Native and Reanimated v2",
+            "html_url": "https://github.com/craftzdog/react-native-animated-todo",
+            "stargazers_count": 460
+        },
+        {
+            "repo_id": "486967534",
+            "name": "react-native-graph",
+            "full_name": "margelo/react-native-graph",
+            "description": "📈 Beautiful, high-performance Graphs and Charts for React Native built with Skia",
+            "html_url": "https://github.com/margelo/react-native-graph",
+            "stargazers_count": 2634
+        },
+        {
+            "repo_id": "106032326",
+            "name": "react-native-copilot",
+            "full_name": "mohebifar/react-native-copilot",
+            "description": "Step-by-step walkthrough tooltip for your react native app",
+            "html_url": "https://github.com/mohebifar/react-native-copilot",
+            "stargazers_count": 2435
+        },
+        {
+            "repo_id": "94603643",
+            "name": "react-native-examples",
+            "full_name": "ethantran/react-native-examples",
+            "description": "UI examples from pttrns.com converted to React Native.  Examples of SVG Animation with react-native-svg, flubber, d3",
+            "html_url": "https://github.com/ethantran/react-native-examples",
+            "stargazers_count": 320
+        }
+    ]
 
 export function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value)

@@ -12,7 +12,14 @@ import './App.css'
 export default function App() {
   const { session, isSessionLoading, isAuthActionPending, authError, signIn, signOut } =
     useSupabaseAuth()
-  const { savedRepositories, savingRepositoryIds, saveError, saveRepository } = useSavedRepositories()
+  const {
+    savedRepositories,
+    savingRepositoryIds,
+    deletingRepositoryIds,
+    saveError,
+    saveRepository,
+    deleteRepository,
+  } = useSavedRepositories(session?.access_token)
   const [activeTab, setActiveTab] = useState<WorkspaceTab>('discover')
 
   return (
@@ -35,6 +42,9 @@ export default function App() {
         )}
         <div className="workspace-frame">
           <WorkspaceHeading activeTab={activeTab} onTabChange={setActiveTab} />
+          {saveError && activeTab !== 'discover' && (
+            <div className="alert-message" role="alert">{saveError}</div>
+          )}
           <div
             id="discover-panel"
             className="workspace-content"
@@ -58,7 +68,11 @@ export default function App() {
             tabIndex={0}
             hidden={activeTab !== 'summary'}
           >
-            <SummaryTab savedRepositories={savedRepositories} />
+            <SummaryTab
+              savedRepositories={savedRepositories}
+              onDeleteRepository={deleteRepository}
+              deletingRepositoryIds={deletingRepositoryIds}
+            />
           </div>
           <div
             id="compare-panel"
@@ -68,7 +82,11 @@ export default function App() {
             tabIndex={0}
             hidden={activeTab !== 'compare'}
           >
-            <CompareTab savedRepositories={savedRepositories} />
+            <CompareTab
+              savedRepositories={savedRepositories}
+              onDeleteRepository={deleteRepository}
+              deletingRepositoryIds={deletingRepositoryIds}
+            />
           </div>
         </div>
       </section>

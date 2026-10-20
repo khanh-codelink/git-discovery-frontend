@@ -249,7 +249,16 @@
   gap: 8px;
 }
 
+.saved-repository-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  max-width: 100%;
+}
+
 .saved-repository-toggle {
+  min-width: 0;
+  overflow-wrap: anywhere;
   padding: 5px 10px;
   border: 1px solid #3a473e;
   border-radius: 999px;
@@ -267,6 +276,31 @@
   border-color: var(--mint);
   color: #142018;
   background: var(--mint);
+}
+
+.saved-repository-delete {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  color: #95a39a;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.saved-repository-delete:hover:not(:disabled) {
+  color: #ffc6aa;
+  background: #34231e;
+}
+
+.saved-repository-delete:disabled {
+  opacity: 0.5;
+  cursor: wait;
 }
 
 .chat-search-status,

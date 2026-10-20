@@ -7,13 +7,15 @@ import { summarizeRepository } from './summaryApi'
 
 type SummaryTabProps = {
   savedRepositories: RepoResult[]
+  onDeleteRepository: (repositoryId: string) => void
+  deletingRepositoryIds: string[]
 }
 
 function getErrorMessage(error: unknown) {
   return error instanceof Error ? error.message : 'Could not summarize the repository. Please try again.'
 }
 
-export function SummaryTab({ savedRepositories }: SummaryTabProps) {
+export function SummaryTab({ savedRepositories, onDeleteRepository, deletingRepositoryIds }: SummaryTabProps) {
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [summaries, setSummaries] = useState<Record<string, SummaryResponse>>({})
   const [loadingIds, setLoadingIds] = useState<string[]>([])
@@ -64,6 +66,8 @@ export function SummaryTab({ savedRepositories }: SummaryTabProps) {
         repositories={savedRepositories}
         selectedIds={selectedId ? [selectedId] : []}
         onToggle={toggleRepository}
+        onDelete={onDeleteRepository}
+        deletingRepositoryIds={deletingRepositoryIds}
       />
       <ChatPanel
         input={input}
