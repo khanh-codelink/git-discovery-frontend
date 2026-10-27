@@ -1,5 +1,5 @@
 import type { RepoResult } from '../../types/search'
-import type { SummaryQuery, SummaryResponse } from '../../types/summary'
+import type { SummarizeRequest, SummaryResponse } from '../../types/summary'
 import { isRecord, isRepoResult } from '../discover/searchApi'
 
 function isSummaryResponse(value: unknown): value is SummaryResponse {
@@ -10,10 +10,6 @@ function isSummaryResponse(value: unknown): value is SummaryResponse {
     typeof value.created_at === 'string' &&
     (value.selected_repo === null || value.selected_repo === undefined || isRepoResult(value.selected_repo))
   )
-}
-
-export function createSummaryQuery(repository: RepoResult): string {
-  return `Summarize the repository ${repository.full_name} (ID: ${repository.repo_id}) at ${repository.html_url}.`
 }
 
 function createMockSummary(repository: RepoResult): SummaryResponse {
@@ -29,19 +25,28 @@ function createMockSummary(repository: RepoResult): SummaryResponse {
   }
 }
 
-export async function summarizeRepository(repository: RepoResult): Promise<SummaryResponse> {
-  if (import.meta.env.VITE_USE_MOCK_SEARCH === 'true') {
+export async function summarizeRepository(
+  request: SummarizeRequest,
+  accessToken: string | undefined,
+): Promise<SummaryResponse> {
+  const repository = request.repositories[0]
+
+  if (import.meta.env.VITE_USE_MOCK_SUMMARIZE === 'true') {
     await new Promise<void>((resolve) => window.setTimeout(resolve, 300))
     return createMockSummary(repository)
   }
 
+  if (!accessToken) throw new Error('Please sign in to summarize repositories.')
+
   const apiUrl = import.meta.env.VITE_API_URL?.replace(/\/+$/, '')
   if (!apiUrl) throw new Error('VITE_API_URL is not configured.')
 
-  const request: SummaryQuery = { query: createSummaryQuery(repository) }
   const response = await fetch(`${apiUrl}/summarize`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
     body: JSON.stringify(request),
   })
 

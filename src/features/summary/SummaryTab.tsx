@@ -7,6 +7,7 @@ import { summarizeRepository } from './summaryApi'
 
 type SummaryTabProps = {
   savedRepositories: RepoResult[]
+  accessToken: string | undefined
   onDeleteRepository: (repositoryId: string) => void
   deletingRepositoryIds: string[]
 }
@@ -15,7 +16,12 @@ function getErrorMessage(error: unknown) {
   return error instanceof Error ? error.message : 'Could not summarize the repository. Please try again.'
 }
 
-export function SummaryTab({ savedRepositories, onDeleteRepository, deletingRepositoryIds }: SummaryTabProps) {
+export function SummaryTab({
+  savedRepositories,
+  accessToken,
+  onDeleteRepository,
+  deletingRepositoryIds,
+}: SummaryTabProps) {
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [summaries, setSummaries] = useState<Record<string, SummaryResponse>>({})
   const [loadingIds, setLoadingIds] = useState<string[]>([])
@@ -39,7 +45,7 @@ export function SummaryTab({ savedRepositories, onDeleteRepository, deletingRepo
     })
 
     try {
-      const result = await summarizeRepository(repository)
+      const result = await summarizeRepository({ repositories: [repository] }, accessToken)
       setSummaries((previous) => ({ ...previous, [repoId]: result }))
     } catch (error: unknown) {
       setErrors((previous) => ({ ...previous, [repoId]: getErrorMessage(error) }))

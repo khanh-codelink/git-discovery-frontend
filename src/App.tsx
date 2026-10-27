@@ -70,6 +70,7 @@ export default function App() {
           >
             <SummaryTab
               savedRepositories={savedRepositories}
+              accessToken={session?.access_token}
               onDeleteRepository={deleteRepository}
               deletingRepositoryIds={deletingRepositoryIds}
             />
@@ -84,6 +85,7 @@ export default function App() {
           >
             <CompareTab
               savedRepositories={savedRepositories}
+              accessToken={session?.access_token}
               onDeleteRepository={deleteRepository}
               deletingRepositoryIds={deletingRepositoryIds}
             />

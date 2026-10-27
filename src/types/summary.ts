@@ -1,7 +1,7 @@
 import type { RepoResult } from './search'
 
-export type SummaryQuery = {
-  query: string
+export type SummarizeRequest = {
+  repositories: [RepoResult, ...RepoResult[]]
 }
 
 export type SummaryResponse = {
