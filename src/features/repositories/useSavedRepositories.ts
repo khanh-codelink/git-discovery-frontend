@@ -18,10 +18,10 @@ export function useSavedRepositories(accessToken: string | undefined) {
     const fetchSavedRepositories = async () => {
       setSavedRepositories([])
       setSaveError('')
-      if (!accessToken) return
+      if (!accessToken) return {repositories: []}
 
       try {
-        const repositories = await getSavedRepositories(accessToken)
+        const {items: repositories} = await getSavedRepositories(accessToken)
         if (isActive) setSavedRepositories(repositories)
       } catch (error: unknown) {
         if (isActive) setSaveError(getErrorMessage(error))
