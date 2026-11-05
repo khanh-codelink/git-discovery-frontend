@@ -1,15 +1,16 @@
 import { useState } from 'react'
 import { ChatPanel, type ChatItem } from '../chat/ChatPanel'
-import { ChatComposer } from '../chat/ChatComposer'
 import { SavedRepositoriesPanel } from '../repositories/SavedRepositoriesPanel'
 import type { RepoResult } from '../../types/search'
 import type { ComparisonReport } from '../../types/comparison'
 import { compareRepositories } from './compareApi'
 
+const defaultCriteria = 'Compare these repositories by key features, tech stack, use cases, strengths, and limitations.'
+
 const initialMessages: ChatItem[] = [
   {
     type: 'string',
-    content: 'Select at least two saved repositories, then tell me the criteria to compare them by.',
+    content: 'Select at least two saved repositories to compare.',
     owner: 'chatbot',
   },
 ]
@@ -128,7 +129,9 @@ export function CompareTab({
         deletingRepositoryIds={deletingRepositoryIds}
       />
       <ChatPanel input={messages} isLoading={isLoading} loadingText="Comparing repositories..." error={error} />
-      <ChatComposer onSend={sendMessage} disabled={isLoading} />
+      <button className="send-button" type="button" onClick={() => sendMessage(defaultCriteria)} disabled={isLoading}>
+        Compare
+      </button>
     </>
   )
 }
